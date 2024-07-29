@@ -1,0 +1,17 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: serviceRegsitry
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}
+    lease-expiration-duration-in-seconds: 90
+  server:
+    eviction-interval-timer-in-ms: 60000
+    renewal-percent-threshold: 0.85

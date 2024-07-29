@@ -1,0 +1,59 @@
+# The server configuration for the application
+server:
+  port: 8082 #the port on which the application will run.
+ 
+# Spring application configuration 
+spring:
+
+  application:
+    name: account-management-service # The name of the application
+    
+  datasource:
+    driverClassName: org.h2.Driver #driver class name for h2 dtabase
+    password: password #password
+    url: jdbc:h2:mem:accountdb;DB_CLOSE_ON_EXIT=FALSE #url of in-memory h2 database
+    username: sa #username
+    
+  h2:
+    console:
+      enabled: true
+      
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+#  cloud:
+#    config:
+#      enabled: false
+  #for fetching the configuration from config server  
+  config:
+    import: optional:configserver:http://localhost:8085
+    
+ 
+#Eureka client configuration commented because fteching from global configuration   
+#eureka:
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      default-zone: http://localhost:8761/eureka
+#  instance:
+#    prefer-ip-address: true
+    
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+  endpoint:
+    health:
+      show-details: always
